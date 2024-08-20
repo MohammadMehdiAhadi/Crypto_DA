@@ -1,11 +1,13 @@
 import yfinance as yf
-import pandas as pd
 
-df = yf.download("BTC-USD",period = "2d" , interval = "15m")
+print("Downloading Data ...")
+print("Please Wait")
 
-# print(df)
-# print("-----------------------------------------------")
-# print(df.shape)
-# print("-----------------------------------------------")
-# print(df.columns)
-df.to_csv("BTC_Price_15m.csv")
+df = yf.download("BTC-USD", period="60d", interval="15m")
+
+if not df.empty:
+    df.to_csv("BTC_Price_15m.csv")
+    print("It's Done; Enjoy!")
+else:
+    print("Check Your Connection please!")
+
