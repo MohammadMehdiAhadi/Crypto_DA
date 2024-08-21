@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 
 
 print("Reading Data...")
-df = pd.read_csv("BTC_Price_15m.csv", index_col="Datetime")
-df["Date"] = df.index
+df = pd.read_csv("BTC_Price_15m.csv")
+df.set_index(df["Datetime"], inplace=True)
 print("Done")
 print("Plotting...")
 
@@ -23,7 +23,7 @@ plt.axhline(std2_p, color='m', linestyle='--', label="Positive 2Std")
 plt.axhline(std_n, color='y', linestyle='--', label="Negative Std")
 plt.axhline(std2_n, color='c', linestyle='--', label="Negative 2Std")
 
-plt.xticks(ticks=df["Date"].iloc[::200], rotation=45)
+plt.xticks(ticks=df["Datetime"].iloc[::500], rotation=45)
 plt.legend()
 print("Done")
 plt.savefig("BTC_Behavior.jpg")
