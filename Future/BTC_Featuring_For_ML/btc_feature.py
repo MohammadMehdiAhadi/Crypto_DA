@@ -1,9 +1,10 @@
-try:
-    import pandas_ta as ta
-    import pandas as pd
+import pandas_ta as ta
+import pandas as pd
 
+try:
     print("Reading Data...")
     df = pd.read_csv("C:/Crypto_DA/Future/Creating_Data/BTC_Price_15m.csv", index_col="Datetime")
+    df.index = pd.to_datetime(df.index)
     print("Done")
     print("Creating New Csv File For ML...")
 
@@ -34,7 +35,7 @@ try:
     df["mean_21"] = df["Close"].rolling(window=21).mean()
     df["mean_30"] = df["Close"].rolling(window=30).mean()
     df["stdp7"] = df["mean_7"] + df["std_7"]
-    df["stdp7"] = df["mean_7"] - df["std_7"]
+    df["stdn7"] = df["mean_7"] - df["std_7"]
     df["stdp14"] = df["mean_14"] + df["std_14"]
     df["stdn14"] = df["mean_14"] - df["std_14"]
     df["stdp21"] = df["mean_21"] + df["std_21"]
@@ -50,25 +51,22 @@ try:
     df['upper_band'] = df['sma'] + (2 * df['std_dev'])
     df['lower_band'] = df['sma'] - (2 * df['std_dev'])
 
-
     # Add date and day of week
-    # df["Date"] = df.index
-    # df["day_of_week"] = df["Date"].dt.weekday
-
+    df["Date"] = df.index
+    df["day_of_week"] = df["Date"].dt.weekday
 
     # Calculate benefit
     df["Benefit"] = df["Tommorow_Close"] - df["Tommorow_Open"]
     df["Benefit"] = df["Benefit"].apply(lambda x: 1 if x >= 0 else 0)
 
-
-
-    print("Done")
     print(df.corr())
+    btc_corr = df.corr()
 
-    if not df.to_csv("BTC_ML.csv"):
-        print("New Csv File Is Ready ")
-    else:
-        print("Somthing Went Wrong ; Try Again")
+    df.to_csv("BTC_ML.csv")
+    btc_corr.to_csv("BTC_Corr.csv")
+    print("Done")
 
 except Exception as e:
+    print("Something Went Wrong")
     print(e)
+
