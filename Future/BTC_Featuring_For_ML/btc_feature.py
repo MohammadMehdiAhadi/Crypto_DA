@@ -21,6 +21,8 @@ try:
     df["rma"] = ta.rma(df["Close"])
     df["atr"] = ta.atr(df["High"], df["Low"], df["Close"])
     df['std_dev'] = ta.stdev(df['Close'])
+    # ewm -->  وزن هاس بیشتر به داده های نزدیک تر  ema
+    # rolling -->  وزن های یکسان به تمامی داده ها  sma
     df['ema12'] = df['Close'].ewm(span=12).mean()
     df['ema7'] = df['Close'].ewm(span=7).mean()
     df['ema14'] = df['Close'].ewm(span=14).mean()
