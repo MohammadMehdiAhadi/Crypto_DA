@@ -5,6 +5,7 @@ try:
     print("Reading Data...")
     df = pd.read_csv("C:/Crypto_DA/Future/Creating_Data/BTC_Price_15m.csv", index_col="Datetime")
     df.index = pd.to_datetime(df.index)
+
     print("Done")
     print("Creating New Csv File For ML...")
 
