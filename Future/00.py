@@ -6,7 +6,7 @@ df = yf.download("BTC-USD",interval = "1h",period = "730d")
 print(df.columns)
 print(df.index)
 
-
+# da fuck
 # data = yf.download("BTC-USD",interval = "1m")
 #
 # # df["New"] = df["Close"].rolling(window=7).min()
